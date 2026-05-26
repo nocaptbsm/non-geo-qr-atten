@@ -52,11 +52,11 @@ function ScanPage() {
 
   // Countdown
   useEffect(() => {
-    if (!expiresAt || stage === "result") return;
+    if (!expiresAt || stage !== "register") return;
     const tick = setInterval(() => {
       const left = Math.max(0, Math.ceil((expiresAt - Date.now()) / 1000));
       setSecondsLeft(left);
-      if (left === 0 && stage !== "result") {
+      if (left === 0) {
         setInvalidReason("This QR code expired before you could submit. Please scan a fresh one.");
         setStage("invalid");
       }
