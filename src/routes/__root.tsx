@@ -114,6 +114,18 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <Toaster
+        theme="dark"
+        position="top-center"
+        toastOptions={{
+          style: {
+            background: "color-mix(in oklab, var(--card) 80%, transparent)",
+            backdropFilter: "blur(20px)",
+            border: "1px solid var(--border)",
+            color: "var(--foreground)",
+          },
+        }}
+      />
     </QueryClientProvider>
   );
 }
