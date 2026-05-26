@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: attendance_db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: attendance
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: .
+    container_name: attendance_backend
+    ports:
+      - "3000:3000"
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/attendance?schema=public
+      - JWT_SECRET=your_super_secret_jwt_key_here
+      - PORT=3000
+      - FRONTEND_URL=https://non-geo-qr-atten.lovable.app
+    depends_on:
+      - db
+    # We use a command to run migrations before starting
+    command: >
+      sh -c "npx prisma migrate deploy && node dist/server.js"
+
+volumes:
+  pgdata:
