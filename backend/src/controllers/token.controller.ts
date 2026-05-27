@@ -19,7 +19,7 @@ export class TokenController {
   static async validateToken(req: Request, res: Response, next: NextFunction) {
     try {
       const { token } = req.params;
-      await TokenService.validateToken(token);
+      await TokenService.validateToken(token as string);
       
       res.status(200).json({
         success: true,
