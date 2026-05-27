@@ -78,7 +78,7 @@ export class AdminService {
       ],
     });
 
-    const records = logs.map(log => ({
+    const records = logs.map((log: any) => ({
       fullName: log.user.fullName,
       registrationNo: log.user.registrationNo,
       checkInTime: log.checkInTime.toISOString(),
